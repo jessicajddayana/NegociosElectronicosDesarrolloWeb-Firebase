@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+  <div class="bg-dark">
+    <div class="d-flex justify-content-center row ">
+       <nav class="navbar navbar-expand-lg navbar-dark bg-dark col-md-9">
+             
+               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                 <span class="navbar-toggler-icon"></span>
+               </button>
+             
+               <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                 <ul class="navbar-nav mr-auto">
+                   <li class="nav-item active" id="itemRegistro">
+                     <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModal">
+                       Registro 
+                     <span class="sr-only">(current)</span></a>
+                   </li>
+                   <li class="nav-item" id="itemMiPerfil">
+                    <a class="nav-link" href="/miPerfil.html">Mi Perfil</a>
+                  </li>
+                   <li class="nav-item" id="itemTipoLibro">
+                     <a class="nav-link" href="/tipoLibro.html">Tipo Libro</a>
+                   </li>
+                 
+                   <li class="nav-item" id="itemLibro">
+                     <a class="nav-link " href="/libro.html" tabindex="-1" aria-disabled="true">
+                         Libro</a>
+                   </li>
+                   <li class="nav-item" id="itemPrestamos">
+                    <a class="nav-link " href="/prestamos.html" tabindex="-1" 
+                    aria-disabled="true">
+                         Prestamos</a>
+                  </li>
+                   <li class="nav-item" id="itemMisPrestamos">
+                           <a class="nav-link " href="/misPrestamos.html" tabindex="-1" 
+                           aria-disabled="true">
+                               Mis Prestamos</a>
+                   </li>
+                   <li class="nav-item" id="itemSalir">
+                           <a class="nav-link " tabindex="-1" 
+                           aria-disabled="true" onclick="Salir()">
+                               Salir</a>
+                   </li>
+                 </ul>
+               
+               </div>
+             </nav>
+             <!-- Foto y el nombre de la persona logueada-->
+             <div id="divDatosUsu" style="visibility: hidden;"
+             class="text-white d-flex justify-content-center align-items-center bg-dark
+                     col-md-3">
+                   <label class="mr-2 text-white " id="lblNombreUsuario"></label>
+                   <img id="imgFotoUsuario" style="cursor: pointer"  onclick="Salir()"  src="img/noFoto.jpg" width="40" height="40" />
+             </div>
+
+
+
+           </div>
+       </div>
+
+       <input type="button" value="Nuevo" class="btn btn-primary"
+       data-toggle="modal" data-target="#exampleModal"
+        onclick="AbrirModal(0)"
+       />
+
+       <div id="divLibro">
+
+      </div>
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="lblTitulo"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                  <label>Id  Libro:</label>
+                  <input type="text" id="txtIdLibro" readonly class="form-control limpiar"/>
+                <label>Nombre  Libro:</label>
+                <input type="text" id="txtnombre" class="form-control limpiar"/>
+                <label>Tipo  Libro:</label>
+                <select id="cboTipoLibro" class="form-control limpiar"></select>
+                <label>Fecha de Publicaciòn:</label>
+                <input type="date" id="txtFechaPublicacion" class="form-control limpiar"/>
+                <label>Nombre  de Paginas:</label>
+                <input type="number" id="txtNumeroPagina" class="form-control limpiar"/>
+                <label>Cantidad  total de  Libros:</label>
+                <input type="number" id="txtcantidadTotal" class="form-control limpiar"/>
+                <label>Foto Libro</label>
+                <img id="imgFotolLibro" width="200" height="200" class="d-block" style="border:1px" />
+                <input type="file" class="limpiar" id="fileImage" accept="image/*"  onchange="subirImage(this)"  />
+
+                <label class="d-block">Subir Archivo en PDF</label>
+                <iframe id="iframePreview" src="" width="200" height="200" ></iframe>
+                <input class="limpiar" type="file" id="file" accept="application/pdf"  onchange="subirArchivo(this)"  />
+                <input type="button" id="btnDescargar" class="btn btn-primary" onclick="DescargarLibro()" value="Descargar"   />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="btnCancelar" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="button" onclick="guardarLibro()" class="btn btn-primary">Guardar</button>
+            </div>
+      
+            <div class="alert alert-danger" id="alertaErrorCrearLibro" role="alert" style="display: none;">
+              
+            </div>
+      
+          </div>
+        </div>
+      </div>
+
+                   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+                   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+                   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+                   <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+                   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-firestore.js"></script>
+
+                   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-auth.js"></script>
+                   <script src="js/generic.js"></script>
+                   <script src="https://www.gstatic.com/firebasejs/6.2.0/firebase-storage.js"></script>
+
+                   <script src="js/index.js"></script>
+                   <script src="js/libro.js"></script>
+                  </body>
+</html>
